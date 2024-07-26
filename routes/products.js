@@ -28,4 +28,29 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  const productId = parseInt(req.params.id); // Extract the ID from the URL parameters
+  // Input validation (optional):
+  if (isNaN(productId) || productId < 1) {
+    return res.status(400).json({ error: "Invalid product ID" });
+  }
+
+  try {
+    const client = new Client(dbConfig);
+    await client.connect();
+
+    const query = "SELECT * FROM products WHERE id = $1";
+    const result = await client.query(query, [productId]);
+
+    if (result.rows.length === 0) {
+      res.status(404).json({ error: "Product not found" });
+    } else {
+      res.json(result.rows[0]); // Return the single product object
+    }
+  } catch (err) {
+    console.error("Error fetching product:", err);
+    res.status(500).json({ error: "Error fetching product" });
+  }
+});
+
 module.exports = router;
