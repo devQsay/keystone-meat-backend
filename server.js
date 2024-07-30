@@ -6,6 +6,7 @@ const { Client } = require("pg");
 
 const productsRouter = require("./routes/products"); //import products router
 const usersRouter = require("./routes/users"); //import users router
+const authRouter = require("./routes/auth"); //import auth router
 
 // Create an Express router
 const router = express.Router();
@@ -48,6 +49,9 @@ app.use("/api/products", productsRouter);
 
 //Mounts the users router on the endpoint
 app.use("/api/users", usersRouter);
+
+//Mounts the auth router on the endpoint
+app.use("/api/auth", authRouter);
 
 // Add more routes as needed
 
