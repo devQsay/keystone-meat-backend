@@ -3,8 +3,19 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const dbConfig = require("../config");
+const dotenv = require("dotenv");
 const { Client } = require("pg");
+
+dotenv.config(); // Load environment variables from .env file
+
+// Database connection (replace with your actual credentials)
+const dbConfig = {
+  user: process.env.PG_USER,
+  host: process.env.PG_HOST,
+  database: process.env.PG_DATABASE,
+  password: process.env.PG_PASSWORD,
+  port: process.env.PG_PORT,
+};
 
 // Login route
 router.post("/login", async (req, res) => {

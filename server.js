@@ -8,9 +8,6 @@ const productsRouter = require("./routes/products"); //import products router
 const usersRouter = require("./routes/users"); //import users router
 const authRouter = require("./routes/auth"); //import auth router
 
-// Create an Express router
-const router = express.Router();
-
 dotenv.config(); // Load environment variables from .env file
 
 const app = express();
