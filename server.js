@@ -3,7 +3,9 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const { Client } = require("pg");
+
 const productsRouter = require("./routes/products"); //import products router
+const usersRouter = require("./routes/users"); //import users router
 
 // Create an Express router
 const router = express.Router();
@@ -41,7 +43,11 @@ app.get("/api/animals", async (req, res) => {
   }
 });
 
-app.use("/api/products", productsRouter); //Mounts the products router on the endpoint
+//Mounts the products router on the endpoint
+app.use("/api/products", productsRouter);
+
+//Mounts the users router on the endpoint
+app.use("/api/users", usersRouter);
 
 // Add more routes as needed
 
