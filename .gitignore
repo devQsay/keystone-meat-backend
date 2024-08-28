@@ -24,6 +24,9 @@ Thumbs.db
 .vscode/
 *.iml
 
+# Scripts for creating a user:
+scripts/
+
 # Other common files to ignore
 .DS_Store?
 ._*

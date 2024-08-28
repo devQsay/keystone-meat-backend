@@ -1,0 +1,22 @@
+meta {
+  name: Login
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:3002/api/auth/login/?username=QuasayM
+  body: json
+  auth: none
+}
+
+params:query {
+  username: QuasayM
+}
+
+body:json {
+  {
+    "password": "Keystone_2023!",
+    "username": "QuasayMes"
+  }
+}

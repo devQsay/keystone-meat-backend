@@ -48,7 +48,7 @@ app.use("/api/products", productsRouter);
 app.use("/api/users", usersRouter);
 
 //Mounts the auth router on the endpoint
-app.use("/api/auth", authRouter);
+app.use("/api/auth/login", authRouter);
 
 // Add more routes as needed
 

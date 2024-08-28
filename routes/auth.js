@@ -18,7 +18,10 @@ const dbConfig = {
 };
 
 // Login route
-router.post("/login", async (req, res) => {
+router.post("/", async (req, res) => {
+  console.log("Testing to see if this works");
+  console.log("Does the req have a body?", req.body);
+
   const { username, password } = req.body;
 
   try {
@@ -43,7 +46,9 @@ router.post("/login", async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.json({ token });
+    const userData = { id: user.id, username: user.username }; // You can add more fields as needed
+
+    res.json({ token, user: userData });
   } catch (err) {
     console.error("Login error:", err);
     res.status(500).json({ error: "Internal server error" });
