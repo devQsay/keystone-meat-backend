@@ -7,6 +7,9 @@ const { Client } = require("pg");
 const productsRouter = require("./routes/products"); //import products router
 const usersRouter = require("./routes/users"); //import users router
 const authRouter = require("./routes/auth"); //import auth router
+const customersRouter = require("./routes/customers"); //import customers router
+const ordersRouter = require("./routes/orders"); //import orders router
+const orderItemsRouter = require("./routes/orderItems"); //import order items router
 
 dotenv.config(); // Load environment variables from .env file
 
@@ -50,6 +53,14 @@ app.use("/api/users", usersRouter);
 //Mounts the auth router on the endpoint
 app.use("/api/auth/login", authRouter);
 
+//Mounts the customers router on the endpoint
+app.use("/api/customers", customersRouter);
+
+//Mounts the orders router on the endpoint
+app.use("/api/orders", ordersRouter);
+
+//Mounts the order items router on the endpoint
+app.use("/api/orderItems", orderItemsRouter);
 // Add more routes as needed
 
 app.listen(port, () => {
