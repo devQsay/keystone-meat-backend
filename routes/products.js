@@ -53,4 +53,62 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// POST /api/products
+router.post("/", async (req, res) => {
+  const { name, price } = req.body; // Assuming product has name and price fields
+  try {
+    const client = new Client(dbConfig);
+    await client.connect();
+    const query =
+      "INSERT INTO products (name, price) VALUES ($1, $2) RETURNING *";
+    const result = await client.query(query, [name, price]);
+    res.status(201).json(result.rows[0]); // Return the created product
+  } catch (err) {
+    console.error("Error creating product:", err);
+    res.status(500).json({ error: "Error creating product" });
+  }
+});
+
+// PUT /api/products/:id
+router.put("/:id", async (req, res) => {
+  const productId = parseInt(req.params.id);
+  const { name, price } = req.body; // Assuming product has name and price fields
+  try {
+    const client = new Client(dbConfig);
+    await client.connect();
+    const query =
+      "UPDATE products SET name = $1, price = $2 WHERE id = $3 RETURNING *";
+    const result = await client.query(query, [name, price, productId]);
+
+    if (result.rows.length === 0) {
+      res.status(404).json({ error: "Product not found" });
+    } else {
+      res.json(result.rows[0]); // Return the updated product
+    }
+  } catch (err) {
+    console.error("Error updating product:", err);
+    res.status(500).json({ error: "Error updating product" });
+  }
+});
+
+// DELETE /api/products/:id
+router.delete("/:id", async (req, res) => {
+  const productId = parseInt(req.params.id);
+  try {
+    const client = new Client(dbConfig);
+    await client.connect();
+    const query = "DELETE FROM products WHERE id = $1";
+    const result = await client.query(query, [productId]);
+
+    if (result.rowCount === 0) {
+      res.status(404).json({ error: "Product not found" });
+    } else {
+      res.status(204).send(); // No content to send back
+    }
+  } catch (err) {
+    console.error("Error deleting product:", err);
+    res.status(500).json({ error: "Error deleting product" });
+  }
+});
+
 module.exports = router;
